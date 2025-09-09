@@ -57,6 +57,15 @@ app.use(cors());
 // );
 // app.use(xss());
 
+// Health check endpoint
+app.get("/api/v1/auth/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Backend is running",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/sales", saleRouter);
