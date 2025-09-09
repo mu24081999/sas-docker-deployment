@@ -4,26 +4,34 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy root package.json and workspace configuration
+COPY package.json ./
+COPY package-lock.json* ./
 
-# Install all dependencies (including dev dependencies for build)
-RUN npm ci --only-production --legacy-peer-deps
+# Copy frontend package.json
+COPY frontend/package.json ./frontend/
 
-# Copy source code
-COPY . .
+# Install dependencies for the entire workspace
+RUN npm ci --legacy-peer-deps
 
-# Build the app
-RUN npm run build
+# Copy frontend source code
+COPY frontend/ ./frontend/
+
+# Set working directory to frontend
+WORKDIR /app/frontend
+
+# Build the app (run from root to access workspace dependencies)
+WORKDIR /app
+RUN npm run build:frontend
 
 # Stage 2: Serve the app with nginx
 FROM nginx:alpine
 
 # Copy built app from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/frontend/dist /usr/share/nginx/html
 
 # Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port
 EXPOSE 80

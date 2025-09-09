@@ -1,12 +1,12 @@
 # Dependencies
-node_modules/
+node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # Production builds
-frontend/dist/
-backend/dist/
+frontend/dist
+backend/dist
 
 # Environment files
 .env
@@ -16,8 +16,8 @@ backend/dist/
 .env.production.local
 
 # IDE files
-.vscode/
-.idea/
+.vscode
+.idea
 *.swp
 *.swo
 
@@ -25,18 +25,37 @@ backend/dist/
 .DS_Store
 Thumbs.db
 
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Documentation
+README.md
+*.md
+
 # Logs
-logs/
+logs
 *.log
 
 # Runtime data
-pids/
+pids
 *.pid
 *.seed
 *.pid.lock
 
-# Coverage directory
-coverage/
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
 
 # Optional npm cache directory
 .npm
@@ -59,7 +78,7 @@ coverage/
 # Yarn Integrity file
 .yarn-integrity
 
-# parcel-bundler cache
+# parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
 
