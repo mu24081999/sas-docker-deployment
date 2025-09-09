@@ -7,9 +7,9 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-password123}
-      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-sas_db}
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: sas_db
     volumes:
       - mongodb_data:/data/db
       - ./backend/dump:/docker-entrypoint-initdb.d
@@ -28,7 +28,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=5000
-      - MONGO_URI=mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-password123}@mongodb:27017/${MONGO_DATABASE:-sas_db}?authSource=admin
+      - MONGO_URI=mongodb://admin:password123@mongodb:27017/sas_db?authSource=admin
       - JWT_SECRET=your_jwt_secret_key_here
       - JWT_LIFETIME=7d
       - FRONTEND_APP_URL=http://localhost:5173
