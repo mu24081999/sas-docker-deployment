@@ -38,8 +38,8 @@ services:
   # Frontend React App
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: sas-frontend-prod
     restart: unless-stopped
     depends_on:
