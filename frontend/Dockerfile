@@ -4,6 +4,16 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
+# Build-time environment for Vite
+ARG VITE_API_URL
+ARG VITE_APP_NAME
+ARG VITE_APP_VERSION
+ARG VITE_NODE_ENV
+ENV VITE_API_URL="$VITE_API_URL"
+ENV VITE_APP_NAME="$VITE_APP_NAME"
+ENV VITE_APP_VERSION="$VITE_APP_VERSION"
+ENV VITE_NODE_ENV="$VITE_NODE_ENV"
+
 # Copy package files
 COPY package.json ./
 COPY package-lock.json* ./
