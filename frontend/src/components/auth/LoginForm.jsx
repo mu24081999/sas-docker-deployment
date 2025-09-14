@@ -14,24 +14,34 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({
     defaultValues: { email: "", password: "" },
   });
 
+  // Watch form values for debugging
+  const watchedValues = watch();
+  console.log("Current form values:", watchedValues);
+
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
+      console.log("Login successful:", data);
       authLogin(data.user, data.token);
       toast.success("Login successful!");
       navigate(`/${data?.user?.role}-dashboard`);
       // navigate(`/dashboard`);
     },
     onError: (error) => {
+      console.error("Login error:", error);
+      console.error("Error response:", error.response);
       toast.error(error.response?.data?.msg || "Login failed");
     },
   });
 
   const onSubmit = (data) => {
+    console.log("Form submitted with data:", data);
+    console.log("API URL:", import.meta.env.VITE_API_URL);
     mutation.mutate(data);
   };
 

@@ -1,7 +1,7 @@
 import {
-  ChartColumn,
+  // ChartColumn,
   Home,
-  NotepadText,
+  // NotepadText,
   Package,
   PackagePlus,
   Settings,

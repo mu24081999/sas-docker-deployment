@@ -36,7 +36,7 @@ RadioGroup.propTypes = {
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-    }),
+    })
   ).isRequired,
   error: PropTypes.string,
 };

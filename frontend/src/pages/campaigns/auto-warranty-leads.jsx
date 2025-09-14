@@ -268,7 +268,7 @@ export const AutoWarrantyLeads = () => {
               {...register("agentName", {
                 required: "Agent name is required",
               })}
-              error={errors.customerName?.message}
+              error={errors.agentName?.message}
             />
             <Input
               label="Primary Phone Number"
