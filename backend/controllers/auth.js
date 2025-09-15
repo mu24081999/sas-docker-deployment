@@ -260,7 +260,7 @@ const toggleAgentActive = async (req, res) => {
 function generateEmail(name) {
   // Utility to generate email/passwordfunction generateEmail(name) {
   const slug = name.toLowerCase().replace(/\s+/g, "");
-  return `${slug}@intertech.com`;
+  return `${slug}@futurenowconsulting.com`;
 }
 
 function generatePassword(name) {
