@@ -6,7 +6,7 @@ const app = express();
 // extra security packages
 const helmet = require("helmet");
 const cors = require("cors");
-// const xss = require("xss-clean");
+const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
 // connect db
@@ -54,7 +54,7 @@ app.use(
     credentials: false, // Set to true if using cookies
   })
 );
-// app.use(xss());
+app.use(xss());
 
 // Health check endpoint
 app.get("/api/v1/auth/health", (req, res) => {

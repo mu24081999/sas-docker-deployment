@@ -28,7 +28,8 @@
     "http-status-codes": "^2.3.0",
     "exceljs": "^4.4.0",
     "joi": "^17.11.0",
-    "json2csv": "^5.0.7"
+    "json2csv": "^5.0.7",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
