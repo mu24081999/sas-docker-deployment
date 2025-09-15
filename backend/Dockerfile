@@ -9,7 +9,7 @@ COPY package.json ./
 COPY package-lock.json* ./
 
 # Install dependencies
-RUN npm ci --only=production --legacy-peer-deps
+RUN npm install --only=production --legacy-peer-deps
 
 # Copy source code
 COPY . ./

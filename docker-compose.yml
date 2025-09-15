@@ -19,8 +19,8 @@ services:
   # Backend API
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile.dev
+      context: ./backend
+      dockerfile: Dockerfile.dev
     container_name: sas-backend
     restart: unless-stopped
     ports:
@@ -33,7 +33,7 @@ services:
       - JWT_LIFETIME=7d
       - FRONTEND_APP_URL=http://localhost:5173
     volumes:
-      - .:/app
+      - ./backend:/app
       - /app/node_modules
     depends_on:
       - mongodb
@@ -43,8 +43,8 @@ services:
   # Frontend React App
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile.dev
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     container_name: sas-frontend
     restart: unless-stopped
     ports:
@@ -52,7 +52,7 @@ services:
     environment:
       - VITE_API_URL=http://localhost:5000/api/v1
     volumes:
-      - .:/app
+      - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
