@@ -54,7 +54,7 @@ app.use(
     credentials: false, // Set to true if using cookies
   })
 );
-app.use(xss());
+// app.use(xss());
 
 // Health check endpoint
 app.get("/api/v1/auth/health", (req, res) => {
