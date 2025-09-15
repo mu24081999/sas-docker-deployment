@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";
 import { navbarLinks } from "../constants";
-import intertechLogo from "../assets/intertech-logo2.svg";
+import intertechLogo from "../assets/intertech-logo.png";
 import { cn } from "../utils/cn";
 import PropTypes from "prop-types";
 import useAuth from "../hooks/useAuth";
@@ -28,7 +28,7 @@ export const Sidebar = forwardRef(({ collapsed }, ref) => {
       )}
     >
       <div className="flex gap-x-3 p-3">
-        <img src={intertechLogo} alt="intertech" className="dark:hidden w-20" />
+        <img src={intertechLogo} alt="intertech" className="dark:hidden w-50" />
         <img
           src={intertechLogo}
           alt="intertech"
