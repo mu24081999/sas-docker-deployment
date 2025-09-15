@@ -33,29 +33,28 @@ app.use(
 );
 app.use(helmet());
 const allowedOrigins = [
-  process.env.FRONTEND_APP_URL ||
-    "https://sales-automation-frontend.vercel.app",
+  process.env.FRONTEND_APP_URL,
+  "https://futurenowconsulting.com",
   "http://localhost:5173", // For local development
 ];
-app.use(cors());
-// app.use(
-// cors()
-// cors({
-//   origin: (origin, callback) => {
-//     // Allow requests with no origin (e.g., Postman, curl)
-//     if (!origin) return callback(null, true);
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   credentials: false, // Set to true if using cookies
-// })
-// );
-// app.use(xss());
+// app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g., Postman, curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false, // Set to true if using cookies
+  })
+);
+app.use(xss());
 
 // Health check endpoint
 app.get("/api/v1/auth/health", (req, res) => {
