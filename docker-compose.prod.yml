@@ -23,6 +23,8 @@ services:
       dockerfile: Dockerfile
     container_name: sas-backend-prod
     restart: unless-stopped
+    ports:
+      - "5000:5000" # Exposed for direct access (comment out when using nginx)
     environment:
       - NODE_ENV=production
       - PORT=5000
@@ -47,47 +49,49 @@ services:
         VITE_NODE_ENV: production
     container_name: sas-frontend-prod
     restart: unless-stopped
-    depends_on:
-      - backend
-    networks:
-      - sas-network
-
-  # Nginx Reverse Proxy
-  nginx:
-    image: nginx:alpine
-    container_name: sas-nginx-prod
-    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      - DOMAIN_NAME=${DOMAIN_NAME}
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/nginx/ssl
-      - certbot_www:/var/www/certbot
-      - certbot_conf:/etc/letsencrypt
+      - "5173:80" # Map host 5173 to container 80 for direct access
     depends_on:
-      - frontend
       - backend
     networks:
       - sas-network
 
-  # Certbot for SSL certificates
-  certbot:
-    image: certbot/certbot
-    container_name: sas-certbot
-    volumes:
-      - certbot_www:/var/www/certbot
-      - certbot_conf:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/var/www/certbot --email ${SSL_EMAIL} --agree-tos --no-eff-email -d ${DOMAIN_NAME}
-    depends_on:
-      - nginx
+  # Nginx Reverse Proxy (commented out for now - uncomment for production with SSL)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: sas-nginx-prod
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   environment:
+  #     - DOMAIN_NAME=${DOMAIN_NAME}
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./nginx/ssl:/etc/nginx/ssl
+  #     - certbot_www:/var/www/certbot
+  #     - certbot_conf:/etc/letsencrypt
+  #   depends_on:
+  #     - frontend
+  #     - backend
+  #   networks:
+  #     - sas-network
+
+  # Certbot for SSL certificates (commented out for now - uncomment for production with SSL)
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: sas-certbot
+  #   volumes:
+  #     - certbot_www:/var/www/certbot
+  #     - certbot_conf:/etc/letsencrypt
+  #   command: certonly --webroot --webroot-path=/var/www/certbot --email ${SSL_EMAIL} --agree-tos --no-eff-email -d ${DOMAIN_NAME}
+  #   depends_on:
+  #     - nginx
 
 volumes:
   mongodb_data:
-  certbot_www:
-  certbot_conf:
+  # certbot_www:  # Commented out - uncomment when using nginx/certbot
+  # certbot_conf:  # Commented out - uncomment when using nginx/certbot
 
 networks:
   sas-network:
