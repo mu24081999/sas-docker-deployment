@@ -4,8 +4,8 @@
   "description": "SAS Backend API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node api.js && node index.js",
+    "dev": "node api.js && nodemon index.js",
     "build": "echo 'Backend build completed'",
     "test": "echo 'No tests specified'"
   },
